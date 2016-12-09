@@ -12,7 +12,7 @@ public class ObjectInfo {
 	private String maTinhBv;
 	private String idKhoiQl;
 	private String port;
-	
+
 	public ObjectInfo() {
 		// TODO Auto-generated constructor stub
 	}
@@ -127,8 +127,5 @@ public class ObjectInfo {
 		this.idKhoiQl = idKhoiQl;
 		this.port = port;
 	}
- 
 
-
-	
 }
