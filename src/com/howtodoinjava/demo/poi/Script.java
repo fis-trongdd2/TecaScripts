@@ -80,10 +80,9 @@ public class Script {
 		Files.write(path, content.getBytes(charset));
 	}
 
-	// dua vao link 
-	private static void createNewScript(String newLink, String newMaDvi, String newBhxhId,
-			String newMis, String newPort, String newHost, String newIdKhoi, String newMaTinhBv, int type)
-			throws IOException {
+	// dua vao link
+	private static void createNewScript(String newLink, String newMaDvi, String newBhxhId, String newMis,
+			String newPort, String newHost, String newIdKhoi, String newMaTinhBv, int type) throws IOException {
 		String oldLink;
 		if (type == 1) {
 			oldLink = Constant.ROOT_SMS;
@@ -99,17 +98,23 @@ public class Script {
 		List<String> listName = Script.readFolder(newLink);
 		for (String str : listName) {
 			str = newLink + "/" + str;
-			Script.replace(str, newMaDvi, newBhxhId, newMis,newPort, newHost, newIdKhoi, newMaTinhBv, type);
+			Script.replace(str, newMaDvi, newBhxhId, newMis, newPort, newHost, newIdKhoi, newMaTinhBv, type);
 		}
 		System.out.println("success!!!");
 	}
 
-	private static void generateAllScripts(String link) throws IOException {
+	public static void generateAllScripts(String link) throws IOException {
 		ReadExcelToList test = new ReadExcelToList(link);
-		for (Map.Entry<String,ObjectInfo> temp : test.getMapObjects().entrySet()){
-			createNewScript(temp.getKey()+"/"+temp.getValue().getLoai1(), temp.getValue().getMaBhxh(), temp.getValue().getIdBhxh(), temp.getValue().getDbname1(), temp.getValue().getPort(), temp.getValue().getServer(), temp.getValue().getIdKhoiQl(), temp.getValue().getMaTinhBv(), 1);
-			createNewScript(temp.getKey()+"/"+temp.getValue().getLoai2(), temp.getValue().getMaBhxh(), temp.getValue().getIdBhxh(), temp.getValue().getDbname2(), temp.getValue().getPort(), temp.getValue().getServer(), temp.getValue().getIdKhoiQl(), temp.getValue().getMaTinhBv(), 2);
+		for (Map.Entry<String, ObjectInfo> temp : test.getMapObjects().entrySet()) {
+			createNewScript(Constant.NEW_DIRECTORY + temp.getKey() + "/" + temp.getValue().getLoai1(),
+					temp.getValue().getMaBhxh(), temp.getValue().getIdBhxh(), temp.getValue().getDbname1(),
+					temp.getValue().getPort(), temp.getValue().getServer(), temp.getValue().getIdKhoiQl(),
+					temp.getValue().getMaTinhBv(), 1);
+			createNewScript(Constant.NEW_DIRECTORY + temp.getKey() + "/" + temp.getValue().getLoai2(),
+					temp.getValue().getMaBhxh(), temp.getValue().getIdBhxh(), temp.getValue().getDbname2(),
+					temp.getValue().getPort(), temp.getValue().getServer(), temp.getValue().getIdKhoiQl(),
+					temp.getValue().getMaTinhBv(), 2);
 		}
-		
+
 	}
 }
