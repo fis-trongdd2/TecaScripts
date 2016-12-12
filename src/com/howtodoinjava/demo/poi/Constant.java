@@ -1,20 +1,25 @@
 package com.howtodoinjava.demo.poi;
 
+import java.io.IOException;
+
 public class Constant {
 
 	// thu muc noi chua tat ca scripmoi
-	public static final String NEW_DIRECTORY = "E:/test/";
+	public static final String NEW_DIRECTORY = "E:/user/trong/testgenscripts/";
+	public static final String ROOT = "E:/user/trong/script/40.DC/10.Script/00.Script/genexcel/00.db55";
+	public static final String EXCEL_FILE = "bentre.xlsx";
 
-	// link sms goc
-	public static final String ROOT_SMS = "E:/scripts/40.DC/10.Script/00.Script/00.db55/01.Thu";
+
+		// link sms goc
+	public static final String ROOT_SMS = ROOT + "/01.Thu";
 	// link sms so the goc
-	public static final String ROOT_SOTHE = "E:/scripts/40.DC/10.Script/00.Script/00.db55/02.SoThe";
+	public static final String ROOT_SOTHE = ROOT + "/02.SoThe";
 
 	// db sms trong file root
-	public static final String MIS = "HAN_THANXUAN_MIS";
+	public static final String MIS = "_MIS";
 
 	// db sms so the trong file root
-	public static final String MIS_SOTHE = "HAN_THANXUAN_ST";
+	public static final String MIS_SOTHE = "_MIS_SOTHE";
 
 	// mabhxh
 	public static final String MA_BHXH = "00109";
@@ -29,9 +34,15 @@ public class Constant {
 	public static final String MA_TINH_BV = "01";
 
 	// hosname dung chung
-	public static final String HOST_NAME = "10.0.120.14";
+	public static final String HOST_NAME = "_HOST_NAME";
 
 	// port cua db mis
-	public static final String PORT = "1433";
-
+	public static final String PORT = "_PORT";
+	public static void main(String[] args) {
+		try {
+			Script.generateAllScripts(Constant.EXCEL_FILE);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

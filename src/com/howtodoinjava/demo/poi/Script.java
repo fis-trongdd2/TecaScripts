@@ -72,6 +72,12 @@ public class Script {
 		newMaTinhBv = "OR MA_TINH IS NULL THEN  &#x27;" + newMaTinhBv + "&#x27";
 		content = content.replaceAll(oldMaTinhBv, newMaTinhBv);
 
+		//tronginthe
+		String old_ma_tinh_inthe,new_ma_tinh_inthe;
+		old_ma_tinh_inthe = "&#x27;" + Constant.MA_TINH_BV + "&#x27;--fix_dbhc";
+		new_ma_tinh_inthe = "&#x27;" + newMaTinhBv + "&#x27;--fix_dbhc";
+		content = content.replaceAll(old_ma_tinh_inthe, new_ma_tinh_inthe);
+		
 		String oldMaTinh, newMaTinh; // trong dmsobhxh capsobhxh
 		oldMaTinh = "&#x27;" + Constant.MA_TINH_BV + " &#x27; MA_TINH";
 		newMaTinh = "&#x27;" + newMaTinhBv + " &#x27; MA_TINH";
