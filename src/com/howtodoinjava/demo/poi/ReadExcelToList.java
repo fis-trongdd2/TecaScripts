@@ -67,22 +67,22 @@ public class ReadExcelToList {
 			if (Objects.isNull(str.get(0)))
 				break;
 			ObjectInfo temp = new ObjectInfo();
-			temp.setTen(FontConverter.convert(FontType.UNICODE, FontType.ACSII, str.get(0)));
-			temp.setLoai1(FontConverter.convert(FontType.UNICODE, FontType.ACSII, str.get(1)));
-			temp.setDbname1(str.get(2));
-			String[] parts = str.get(3).split(",");
+			temp.setTen(FontConverter.convert(FontType.UNICODE, FontType.ACSII, str.get(0).trim().toString()));
+			temp.setLoai1(FontConverter.convert(FontType.UNICODE, FontType.ACSII, str.get(1).trim().toString()));
+			temp.setDbname1(str.get(2).trim().toString());
+			String[] parts = str.get(3).toString().split(",");
 			temp.setServer(parts[0]);
 			if (parts.length > 1) {
-				temp.setPort(parts[1]);
+				temp.setPort(parts[1].trim());
 			} else {
 				temp.setPort("1433");
 			}
-			temp.setLoai2(FontConverter.convert(FontType.UNICODE, FontType.ACSII, str.get(4)));
-			temp.setDbname2(str.get(5));
-			temp.setMaBhxh(str.get(6));
-			temp.setIdBhxh(str.get(7));
-			temp.setMaTinhBv(str.get(8));
-			temp.setIdKhoiQl(str.get(9));
+			temp.setLoai2(FontConverter.convert(FontType.UNICODE, FontType.ACSII, str.get(4).trim().toString()));
+			temp.setDbname2(str.get(5).trim().toString());
+			temp.setMaBhxh(str.get(6).trim().toString());
+			temp.setIdBhxh(str.get(7).trim().toString());
+			temp.setMaTinhBv(str.get(8).trim().toString());
+			temp.setIdKhoiQl(str.get(9).trim().toString());
 			listObjects.add(temp);
 		}
 		file.close();
