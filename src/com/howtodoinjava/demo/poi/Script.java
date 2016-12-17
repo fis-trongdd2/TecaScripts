@@ -27,7 +27,7 @@ public class Script {
 
 	// thay the cac gia tri
 	private static void replace(String link, String newMaDvi, String newBhxhId, String newMis, String newPort,
-			String newHost, String newIdKhoi, String newMaTinhBv, int type) throws IOException {
+			String newHost, String newIdKhoi, String newMaTinhBv, String instance, int type) throws IOException {
 		Path path = Paths.get(link);
 		Charset charset = StandardCharsets.UTF_8;
 		String content = null;
@@ -67,28 +67,48 @@ public class Script {
 		content = content.replaceAll(oldIdKhoi, newIdKhoi);
 
 		// OR MA_TINH IS NULL THEN &#x27;01&#x27;
-		String oldMaTinhBv;
+		String oldMaTinhBv, maTinhBv;
 		oldMaTinhBv = "OR MA_TINH IS NULL THEN  &#x27;" + Constant.MA_TINH_BV + "&#x27";
-		newMaTinhBv = "OR MA_TINH IS NULL THEN  &#x27;" + newMaTinhBv + "&#x27";
-		content = content.replaceAll(oldMaTinhBv, newMaTinhBv);
+		maTinhBv = "OR MA_TINH IS NULL THEN  &#x27;" + newMaTinhBv + "&#x27";
+		content = content.replaceAll(oldMaTinhBv, maTinhBv);
 
-		//tronginthe
-		String old_ma_tinh_inthe,new_ma_tinh_inthe;
+		// tronginthe &#x27;01&#x27;--fix_dbhc
+		String old_ma_tinh_inthe, ma_tinh_inthe;
 		old_ma_tinh_inthe = "&#x27;" + Constant.MA_TINH_BV + "&#x27;--fix_dbhc";
-		new_ma_tinh_inthe = "&#x27;" + newMaTinhBv + "&#x27;--fix_dbhc";
-		content = content.replaceAll(old_ma_tinh_inthe, new_ma_tinh_inthe);
-		
-		String oldMaTinh, newMaTinh; // trong dmsobhxh capsobhxh
+		ma_tinh_inthe = "&#x27;" + newMaTinhBv + "&#x27;--fix_dbhc";
+		content = content.replaceAll(old_ma_tinh_inthe, ma_tinh_inthe);
+
+		// &#x27;01&#x27; DM_TINH_DBHC
+		// DM_TINH_DBHC trong inthe
+		String old_ma_tinh2_inthe, ma_tinh2_inthe;
+		old_ma_tinh2_inthe = "&#x27;" + Constant.MA_TINH_BV + "&#x27; DM_TINH_DBHC";
+		ma_tinh2_inthe = "&#x27;" + newMaTinhBv + "&#x27; DM_TINH_DBHC";
+		content = content.replaceAll(old_ma_tinh2_inthe, ma_tinh2_inthe);
+
+		String oldMaTinh, capsoMaTinh; // trong dmsobhxh capsobhxh
 		oldMaTinh = "&#x27;" + Constant.MA_TINH_BV + " &#x27; MA_TINH";
-		newMaTinh = "&#x27;" + newMaTinhBv + " &#x27; MA_TINH";
-		content = content.replaceAll(oldMaTinh, newMaTinh);
+		capsoMaTinh = "&#x27;" + newMaTinhBv + " &#x27; MA_TINH";
+		content = content.replaceAll(oldMaTinh, capsoMaTinh);
+		if (instance.length() != 0) {
+			String oldInstace, newInstance;
+			oldInstace = "<attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>";
+			newInstance = "<attribute><code>EXTRA_OPTION_MSSQL.instance</code><attribute>" + instance
+					+ "</attribute></attribute><attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>";
+			content = content.replaceAll(oldInstace, newInstance);
+		}
+		// fix trung gian
+		String old_trunggian, new_trunggian;
+		old_trunggian = Constant.SERVER_TRUNGGIAN;
+		new_trunggian = Constant.TRUNGGIAN;
+		content = content.replaceAll(old_trunggian, new_trunggian);
 
 		Files.write(path, content.getBytes(charset));
 	}
 
 	// dua vao link
 	private static void createNewScript(String newLink, String newMaDvi, String newBhxhId, String newMis,
-			String newPort, String newHost, String newIdKhoi, String newMaTinhBv, int type) throws IOException {
+			String newPort, String newHost, String newIdKhoi, String newMaTinhBv, String newInstance, int type)
+			throws IOException {
 		String oldLink;
 		if (type == 1) {
 			oldLink = Constant.ROOT_SMS;
@@ -104,7 +124,8 @@ public class Script {
 		List<String> listName = Script.readFolder(newLink);
 		for (String str : listName) {
 			str = newLink + "/" + str;
-			Script.replace(str, newMaDvi, newBhxhId, newMis, newPort, newHost, newIdKhoi, newMaTinhBv, type);
+			Script.replace(str, newMaDvi, newBhxhId, newMis, newPort, newHost, newIdKhoi, newMaTinhBv, newInstance,
+					type);
 		}
 		System.out.println("success!!!");
 	}
@@ -115,11 +136,11 @@ public class Script {
 			createNewScript(Constant.NEW_DIRECTORY + temp.getKey() + "/" + temp.getValue().getLoai1(),
 					temp.getValue().getMaBhxh(), temp.getValue().getIdBhxh(), temp.getValue().getDbname1(),
 					temp.getValue().getPort(), temp.getValue().getServer(), temp.getValue().getIdKhoiQl(),
-					temp.getValue().getMaTinhBv(), 1);
+					temp.getValue().getMaTinhBv(), temp.getValue().getInstatnce(), 1);
 			createNewScript(Constant.NEW_DIRECTORY + temp.getKey() + "/" + temp.getValue().getLoai2(),
 					temp.getValue().getMaBhxh(), temp.getValue().getIdBhxh(), temp.getValue().getDbname2(),
 					temp.getValue().getPort(), temp.getValue().getServer(), temp.getValue().getIdKhoiQl(),
-					temp.getValue().getMaTinhBv(), 2);
+					temp.getValue().getMaTinhBv(), temp.getValue().getInstatnce(), 2);
 		}
 
 	}

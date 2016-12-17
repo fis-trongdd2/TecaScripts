@@ -4,12 +4,14 @@ import java.io.IOException;
 
 public class Constant {
 
-	// thu muc noi chua tat ca scripmoi
-	public static final String NEW_DIRECTORY = "E:/user/trong/testgenscripts/";
-	public static final String ROOT = "E:/user/trong/script/40.DC/10.Script/00.Script/genexcel/00.db55";
-	public static final String EXCEL_FILE = "bentre.xlsx";
+	public static final String NEW_DIRECTORY = "E:/SCRIPTT/";
+	public static final String ROOT = "E:/user/trong/script/40.DC/10.Script/00.Script/00.db55";
+	public static final String EXCEL_FILE = "map_ip_new.xlsx";
+	public static final String TRUNGGIAN = "10.0.120.13";
 
-
+	
+	
+	
 		// link sms goc
 	public static final String ROOT_SMS = ROOT + "/01.Thu";
 	// link sms so the goc
@@ -38,6 +40,12 @@ public class Constant {
 
 	// port cua db mis
 	public static final String PORT = "_PORT";
+	
+	//server trunggian-
+	public static final String SERVER_TRUNGGIAN = "_DBTRUNGGIAN";
+	
+	
+	
 	public static void main(String[] args) {
 		try {
 			Script.generateAllScripts(Constant.EXCEL_FILE);

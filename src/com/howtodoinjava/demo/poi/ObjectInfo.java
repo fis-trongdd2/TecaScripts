@@ -12,6 +12,32 @@ public class ObjectInfo {
 	private String maTinhBv;
 	private String idKhoiQl;
 	private String port;
+	private String instatnce;
+
+	public ObjectInfo(String ten, String loai1, String dbname1, String server, String loai2, String dbname2,
+			String maBhxh, String idBhxh, String maTinhBv, String idKhoiQl, String port, String instatnce) {
+		super();
+		this.ten = ten;
+		this.loai1 = loai1;
+		this.dbname1 = dbname1;
+		this.server = server;
+		this.loai2 = loai2;
+		this.dbname2 = dbname2;
+		this.maBhxh = maBhxh;
+		this.idBhxh = idBhxh;
+		this.maTinhBv = maTinhBv;
+		this.idKhoiQl = idKhoiQl;
+		this.port = port;
+		this.instatnce = instatnce;
+	}
+
+	public String getInstatnce() {
+		return instatnce;
+	}
+
+	public void setInstatnce(String instatnce) {
+		this.instatnce = instatnce;
+	}
 
 	public ObjectInfo() {
 		// TODO Auto-generated constructor stub
@@ -93,6 +119,14 @@ public class ObjectInfo {
 		return maTinhBv;
 	}
 
+	@Override
+	public String toString() {
+		return "ObjectInfo [ten=" + ten + ", loai1=" + loai1 + ", dbname1=" + dbname1 + ", server=" + server
+				+ ", loai2=" + loai2 + ", dbname2=" + dbname2 + ", maBhxh=" + maBhxh + ", idBhxh=" + idBhxh
+				+ ", maTinhBv=" + maTinhBv + ", idKhoiQl=" + idKhoiQl + ", port=" + port + ", instatnce=" + instatnce
+				+ "]";
+	}
+
 	public void setMaTinhBv(String maTinhBv) {
 		this.maTinhBv = maTinhBv;
 	}
@@ -103,29 +137,6 @@ public class ObjectInfo {
 
 	public void setIdKhoiQl(String idKhoiQl) {
 		this.idKhoiQl = idKhoiQl;
-	}
-
-	@Override
-	public String toString() {
-		return "ObjectInfo [ten=" + ten + ", loai1=" + loai1 + ", dbname1=" + dbname1 + ", server=" + server
-				+ ", loai2=" + loai2 + ", dbname2=" + dbname2 + ", maBhxh=" + maBhxh + ", idBhxh=" + idBhxh
-				+ ", maTinhBv=" + maTinhBv + ", idKhoiQl=" + idKhoiQl + ", port=" + port + "]";
-	}
-
-	public ObjectInfo(String ten, String loai1, String dbname1, String server, String loai2, String dbname2,
-			String maBhxh, String idBhxh, String maTinhBv, String idKhoiQl, String port) {
-		super();
-		this.ten = ten;
-		this.loai1 = loai1;
-		this.dbname1 = dbname1;
-		this.server = server;
-		this.loai2 = loai2;
-		this.dbname2 = dbname2;
-		this.maBhxh = maBhxh;
-		this.idBhxh = idBhxh;
-		this.maTinhBv = maTinhBv;
-		this.idKhoiQl = idKhoiQl;
-		this.port = port;
 	}
 
 }

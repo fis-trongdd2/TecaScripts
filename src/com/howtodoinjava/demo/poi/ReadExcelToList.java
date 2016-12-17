@@ -45,7 +45,7 @@ public class ReadExcelToList {
 				t = cell.getNumericCellValue();
 				temp = t.toString().trim();
 				if (temp.contains(" ")) {
-					temp = temp.substring(0,temp.indexOf(" "));
+					temp = temp.substring(0, temp.indexOf(" "));
 				}
 			} else {
 				temp = cell.getStringCellValue().trim();
@@ -70,13 +70,11 @@ public class ReadExcelToList {
 			temp.setTen(FontConverter.convert(FontType.UNICODE, FontType.ACSII, str.get(0).trim().toString()));
 			temp.setLoai1(FontConverter.convert(FontType.UNICODE, FontType.ACSII, str.get(1).trim().toString()));
 			temp.setDbname1(str.get(2).trim().toString());
-			String[] parts = str.get(3).toString().split(",");
-			temp.setServer(parts[0]);
-			if (parts.length > 1) {
-				temp.setPort(parts[1].trim());
-			} else {
-				temp.setPort("1433");
-			}
+
+			List<String> t = parseIp(str.get(3));
+			temp.setServer(t.get(0));
+			temp.setInstatnce(t.get(1));
+			temp.setPort(t.get(2));
 			temp.setLoai2(FontConverter.convert(FontType.UNICODE, FontType.ACSII, str.get(4).trim().toString()));
 			temp.setDbname2(str.get(5).trim().toString());
 			temp.setMaBhxh(str.get(6).trim().toString());
@@ -89,33 +87,54 @@ public class ReadExcelToList {
 
 	}
 
+	private static List<String> parseIp(String ip) {
+		// 10.10.254.14\smc, 8104
+		List<String> result = new ArrayList<>();
+		String[] parts = ip.toString().split(",");// duoc ip va port
+		String port = "";
+		if (parts.length > 1) {
+			port = parts[1].trim();
+		} else {
+			port = "1433";
+		}
+		if (parts[0].contains("\\")) {
+			String[] temp = parts[0].toString().split("\\\\");
+			result.add(temp[0].trim());
+			if (temp[1].equals("smc") || temp[1].equals("bh") || temp[1].equals("bt") || temp[1].equals("sp")) {
+				result.add("");
+			} else {
+				result.add(temp[1].trim());
+			}
+		} else {
+			result.add(parts[0].trim());
+			result.add("");
+		}
+		result.add(port.trim());
+		return result;
+	}
+
+	public static void main(String[] args) throws IOException {
+		System.out.println(parseIp("10.74.254.2,1433"));
+	}
+
 	public Map<String, ObjectInfo> getMapObjects() {
 		Map<String, ObjectInfo> result = new HashMap<>();
 		String matinh = listObjects.get(0).getMaTinhBv();
 		String link = listObjects.get(0).getTen();
 		String linkToFile = "";
 
-		int i = 0; 
+		int i = 0;
 		for (ObjectInfo temp : this.listObjects) {
 			if (!temp.getMaTinhBv().equals(matinh)) {
 				link = temp.getTen();
 				matinh = temp.getMaTinhBv();
 				i++;
 			}
-			linkToFile = String.format("%02d", i)+ "."+ link + "/" + temp.getTen();
+			linkToFile = String.format("%02d", i) + "." + link + "/" + temp.getTen();
 			result.put(linkToFile, temp);
 		}
 		result.remove(linkToFile);
 		return result;
 	}
 
-	public static void main(String[] args) throws IOException {
-		// ReadExcelToList test = new ReadExcelToList("test2.xlsx");
-		// for (ObjectInfo t : test.getListObjects())
-		// System.out.println(t.toString());
-
-		ReadExcelToList test = new ReadExcelToList("test2.xlsx");
-		for (Map.Entry<String, ObjectInfo> t : test.getMapObjects().entrySet())
-			System.out.println(t.getKey() + " " + t.getValue().toString());
-	}
 }
