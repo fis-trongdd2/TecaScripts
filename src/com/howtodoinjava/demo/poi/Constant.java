@@ -6,7 +6,7 @@ public class Constant {
 
 	public static final String NEW_DIRECTORY = "E:/SCRIPTT/";
 	public static final String ROOT = "E:/user/trong/script/40.DC/10.Script/00.Script/00.db55";
-	public static final String EXCEL_FILE = "map_ip_new.xlsx";
+	public static final String EXCEL_FILE = "map_daifix.xlsx";
 	public static final String TRUNGGIAN = "10.0.120.13";
 
 	

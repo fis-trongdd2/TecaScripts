@@ -133,7 +133,6 @@ public class ReadExcelToList {
 			linkToFile = String.format("%02d", i) + "." + link + "/" + temp.getTen();
 			result.put(linkToFile, temp);
 		}
-		result.remove(linkToFile);
 		return result;
 	}
 
