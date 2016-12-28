@@ -89,13 +89,11 @@ public class Script {
 		oldMaTinh = "&#x27;" + Constant.MA_TINH_BV + " &#x27; MA_TINH";
 		capsoMaTinh = "&#x27;" + newMaTinhBv + " &#x27; MA_TINH";
 		content = content.replaceAll(oldMaTinh, capsoMaTinh);
-		if (instance.length() != 0) {
-			String oldInstace, newInstance;
-			oldInstace = "<attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>";
-			newInstance = "<attribute><code>EXTRA_OPTION_MSSQL.instance</code><attribute>" + instance
-					+ "</attribute></attribute><attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>";
+		String oldInstace, newInstance;
+			oldInstace = "<attribute><code>EXTRA_OPTION_MSSQL.instance</code><attribute>_INSTANCE</attribute></attribute>";
+			newInstance = "<attribute><code>EXTRA_OPTION_MSSQL.instance</code><attribute>"+instance+"</attribute></attribute>";
 			content = content.replaceAll(oldInstace, newInstance);
-		}
+		
 		// fix trung gian
 		String old_trunggian, new_trunggian;
 		old_trunggian = Constant.SERVER_TRUNGGIAN;
